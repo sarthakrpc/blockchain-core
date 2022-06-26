@@ -1,5 +1,5 @@
 import { pushTxtoMemPool } from "./mempool";
-import mainExec from "./executeTxn";
+import {mainExec} from "./executeTxn";
 
 interface data {
   addModule: string;

@@ -1,15 +1,33 @@
-const cryptoAlg: any = require('crypto');
+import { Transaction } from "./Transaction";
+import { buildHash } from "./executeTxn";
+class Block {
+  previousHash: string;
+  currentHash: string;
+  timeStamp: number;
 
-class Block{
-	previousHash : string;
-	currentHash : string;
-	timeStamp : number;
+  constructor(previousHash: string, currentHash: string, timeStamp: number) {
+    this.previousHash = previousHash;
+    this.currentHash = currentHash;
+    this.timeStamp = timeStamp;
+  }
 }
 
-const firstBlock = new Block();
+const time = () => new Date().getTime();
+const genesisBlockValue = "--- GENESIS BLOCK TXN ---";
+const genesisTransaction = new Transaction(
+  "creator",
+  null,
+  genesisBlockValue,
+  time().toString(),
+  time().toString(),
+  buildHash(genesisBlockValue)
+);
 
-firstBlock.previousHash = "null";
-firstBlock.currentHash = "tertre";
-firstBlock.timeStamp = 23;
+const genTimeStamp = new Date().getTime();
+const genesisBlock = new Block(
+  "",
+  buildHash(`${genesisTransaction.valueSent}${time().toString()}`),
+  genTimeStamp
+);
 
-// console.log(newBlock);
+console.log(genesisTransaction);
